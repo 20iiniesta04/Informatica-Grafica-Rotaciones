@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://bojy0v4mgdaxq"]
+
+[ext_resource type="PackedScene" uid="uid://ciomxmu45dawq" path="res://pim_-_smiling_friends.glb" id="1_r57si"]
+[ext_resource type="Script" uid="uid://docwp1ox45uea" path="res://sketchfab_model.gd" id="2_2x2vl"]
+[ext_resource type="Script" uid="uid://bmi7q64i0isky" path="res://sketchfab_scene.gd" id="2_bnieh"]
+[ext_resource type="Script" uid="uid://dam08fattkvtk" path="res://skeleton_3d.gd" id="3_2oyq3"]
+[ext_resource type="Script" uid="uid://ceeaeyg24g1jn" path="res://pivote.gd" id="4_2x2vl"]
+[ext_resource type="Script" uid="uid://bsqhe0o75ch81" path="res://pim.gd" id="5_w8wig"]
+[ext_resource type="Script" uid="uid://cth05vll338vr" path="res://camara_1.gd" id="7_cike5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnieh"]
+radius = 0.63183594
+height = 1.3381348
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_r57si")]
+script = ExtResource("2_bnieh")
+
+[node name="Sketchfab_model" parent="." index="0"]
+script = ExtResource("2_2x2vl")
+
+[node name="Skeleton3D" parent="Sketchfab_model/d2106fc687844c499d1fa3e7b792e9ee_fbx/RootNode/Armature/Object_4" index="0"]
+transform = Transform3D(0.9990161, 0.044351716, 7.0912685e-09, -0.044348534, 0.9989443, -0.011990125, -0.00053178973, 0.011978338, 0.9999283, 0, 0, 0)
+bones/54/rotation = Quaternion(0.999, 0, 0, 0.04)
+script = ExtResource("3_2oyq3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(0.90408254, 0.07420992, 0.42086536, 0, 0.9848077, -0.17364818, -0.42735788, 0.15699229, 0.8903475, 0, 0, 5)
+visible = false
+
+[node name="Pivote" type="Node3D" parent="." index="2"]
+script = ExtResource("4_2x2vl")
+
+[node name="Camara2" type="Camera3D" parent="Pivote" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2)
+
+[node name="Pim" type="StaticBody3D" parent="." index="3"]
+script = ExtResource("5_w8wig")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pim" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6011963, 0)
+shape = SubResource("CapsuleShape3D_bnieh")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Pim" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1716535, 0)
+
+[node name="Camara1" type="Camera3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5024683, 1.7882617)
+script = ExtResource("7_cike5")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camara1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.9999012, -0.0140669495, 0, 0.0140669495, 0.9999012, 0, 0, 0)
+target_position = Vector3(0, -1, -1000)
